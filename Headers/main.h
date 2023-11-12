@@ -1,3 +1,12 @@
+struct TransitionFunction
+{
+    char Read;
+    char Write;
+    char HeadMovement;
+    struct State* Next;
+}TransitionFunction;
+
+
 struct State
 {
     //Name
@@ -6,10 +15,7 @@ struct State
     //Status is Initial or Final.
     char Status[256];
 
-    //TransictionFunction
-    char Read;
-    char Write;
-    char HeadMovement;
-    struct State* Next;
+    //TransictionsFunctions
+    struct TransitionFunction* TransitionsFunctions;
 }State;
 

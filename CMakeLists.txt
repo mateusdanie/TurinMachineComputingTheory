@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.16)
+project(TuringMachine VERSION 1.0 LANGUAGES C)
+
+message(STATUS "Project: ${PROJECT_NAME} (version ${CMAKE_PROJECT_VERSION})")
+message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "CMake Generator: ${CMAKE_GENERATOR}")
+
+set(CMAKE_C_STANDARD 11) 
+set(CMAKE_C_EXTENSIONS ON) 
+set(CMAKE_C_STANDARD_REQUIRED TRUE)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
+file(GLOB_RECURSE SOURCES RELATIVE ${PROJECT_SOURCE_DIR} "source/*.c")
+file(GLOB_RECURSE HEADERS RELATIVE ${PROJECT_SOURCE_DIR} "include/*.h")
+
+set(PROJECT_SOURCES
+        ${SOURCES}
+        ${HEADERS}
+        ${WRAPPERS}
+)
+
+add_executable(
+    ${PROJECT_NAME}
+    ${PROJECT_SOURCES}
+)

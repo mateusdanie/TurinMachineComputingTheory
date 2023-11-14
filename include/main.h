@@ -1,51 +1,28 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <libs.h>
+#include <entities.h>
 
-struct TransitionFunction
+void readGraph(State *Start, char **InputAlphabet, char **Ribbonalphabet, char *FilePath)
 {
-    char Read;
-    char Write;
-    char HeadMovement;
-    struct State* Next_State;
-}TransitionFunction;
-
-
-struct State
-{
-    //Name
-    char* Identifier;
-
-    //Status is Initial or Final.
-    char* Status;
-
-    //TransictionsFunctions
-    struct TransitionFunction* TransitionsFunctions;
-
-    struct State* Next_State;
-}State;
-
-struct State* readGraph(struct State* Start, char* InputAlphabet, char* Ribbonalphabet){
     FILE *file;
-    file = fopen("TuringMachine.txt","r");
+    file = fopen(FilePath, "r");
 
-    if(file == NULL){
-        printf("Arquivo Não pode ser aberto");
-        return 0;
+    if(file == NULL)
+    {
+        printf("[Error]: Arquivo não pode ser aberto !");
+        return;
     }
 
     char content[256];
-    char* content_sliced;
-    char* slice_delimitatator = ",";
-    struct State* Aux = NULL;
-    struct State* Aux2 = NULL;
-    struct State* Start_List = NULL;
+    char *content_sliced;
+    char *slice_delimitatator = ",";
+    struct State *Aux = NULL;
+    struct State *Aux2 = NULL;
+    struct State *Start_List = NULL;
     int j = 0;
     int i = 0;
 
     while (fgets(content, 256, file) != NULL)
     {   
-
         Aux = NULL;
         content_sliced = strtok(content, " ");
         if(strcmp(content_sliced,"E") == 0){
@@ -76,14 +53,14 @@ struct State* readGraph(struct State* Start, char* InputAlphabet, char* Ribbonal
             while(content_sliced != NULL){
                 content_sliced = strtok(NULL, slice_delimitatator);
                 if(content_sliced  != NULL)
-                    strcat(InputAlphabet,content_sliced);
+                    strcat(*InputAlphabet, content_sliced);
             }
         }else if(strcmp(content_sliced,"F") == 0)
         {   
             while(content_sliced != NULL){
                 content_sliced = strtok(NULL, slice_delimitatator);
                 if(content_sliced  != NULL)
-                    strcat(Ribbonalphabet,content_sliced);
+                    strcat(*Ribbonalphabet, content_sliced);
             }   
         }else if(strcmp(content_sliced,"D") == 0)
         {   
@@ -131,9 +108,5 @@ struct State* readGraph(struct State* Start, char* InputAlphabet, char* Ribbonal
             }   
             i++;
         }
-        
-        
-}
-
-    return 0;
+    }
 }

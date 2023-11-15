@@ -1,6 +1,6 @@
 #include "main.h"
 
-State *start_state = nullptr;
+State *graph = nullptr;
 std::vector<std::string> *input_alphabet = new std::vector<std::string>;
 std::vector<std::string> *ribbon_alphabet = new std::vector<std::string>;
 
@@ -12,9 +12,11 @@ int main(int argc, char * argv[])
         return EXIT_FAILURE;
     }*/
 
-    //readGraph(Start, &InputAlphabet, &Ribbonalphabet, "../TuringMachine.txt"  /*argv[0]*/);
+    // graph = load_graph(input_alphabet, ribbon_alphabet, argv[1]);
 
-    load_graph(start_state, input_alphabet, ribbon_alphabet, "../TuringMachine.txt");
+    graph = load_graph(input_alphabet, ribbon_alphabet, "../TuringMachine.txt");
+
+    // Turing Machine Logic
 
     return EXIT_SUCCESS;
 }

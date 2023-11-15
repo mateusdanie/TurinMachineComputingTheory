@@ -9,6 +9,10 @@ void load_graph(State *start_state, std::vector<std::string> *input_alphabet, st
         throw "[ERROR]: Unable to open tue file ! Leaving the program ...";
     }
 
+    State *start_list_ptr = nullptr;
+    State *final_list_ptr = nullptr;    
+    State *aux_ptr = nullptr;
+
     for (std::string file_line; std::getline(coordinates_file, file_line);)
     {
         if (file_line.empty())
@@ -23,13 +27,11 @@ void load_graph(State *start_state, std::vector<std::string> *input_alphabet, st
         std::string_view target = line_view.substr(index);
 
         std::istringstream stream{target.data()};
-        
-        State *start_list_ptr = nullptr;
-        State *final_list_ptr = nullptr;
 
         if(prefix == "E")
         {
             uint32_t count = 0;
+            uint32_t countJ = 0;
             std::string value = "";
 
             while(stream >> value)
@@ -79,7 +81,23 @@ void load_graph(State *start_state, std::vector<std::string> *input_alphabet, st
         }
         else if(prefix == "D")
         {
+            std::string value = "";
 
+            aux_ptr = start_list_ptr;
+
+            stream >> value;
+
+            while(aux_ptr->next_state != nullptr)
+            {
+                if(aux_ptr->identifier == value)
+                {
+                    break;
+                }
+                else
+                {
+                    aux_ptr = aux_ptr->next_state;
+                }
+            }
         }
         else if(prefix == "S")
         {
@@ -124,21 +142,7 @@ void readGraph(State *Start, char *InputAlphabet, char *Ribbonalphabet, char *Fi
         }
         else if(strcmp(content_sliced,"D") == 0)
         {   
-            Aux = Start_List;
-            j = 0;
-            i = 0;
-            content_sliced = strtok(NULL, slice_delimitatator);
-            while (Aux->Next_State != NULL)
-            {
-                if(strcmp(Aux->Identifier, content_sliced) == 0)
-                {
-                    break;
-                }
-                else
-                {
-                    Aux = Aux->Next_State;
-                }
-            }
+
         }
         else if (strcmp(content_sliced,"S") == 0)
         {

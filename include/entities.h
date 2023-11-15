@@ -1,20 +1,19 @@
 #pragma once
 
+#include <libs.h>
+
 typedef struct TransitionFunction
 {
-    char Read;
-    char Write;
-    char HeadMovement;
-    struct State* Next_State;
+    char read;
+    char write;
+    char head_movement;
+    struct State* next_state;
 } TransitionFunction;
 
 typedef struct State
 {
-    //Name
-    char* Identifier;
-    //Status is Initial or Final.
-    char* Status;
-    //TransictionsFunctions
-    struct TransitionFunction* TransitionsFunctions;
-    struct State* Next_State;
+    std::string identifier;
+    std::string status;
+    struct TransitionFunction* transitions_functions;
+    struct State* next_state;
 } State;

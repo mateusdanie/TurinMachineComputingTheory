@@ -1,6 +1,4 @@
-#include "../include/main.h"
-
-//aAbB 
+#include "main.h"
 
 State *Start = NULL;
 char *InputAlphabet = NULL; // Equivalente a uma lista de strings ou matrix de caracteres
@@ -14,7 +12,9 @@ int main(int argc, char * argv[])
         return EXIT_FAILURE;
     }*/
 
-    readGraph(Start, &InputAlphabet, &Ribbonalphabet, "../TuringMachine.txt"  /*argv[0]*/);
+    //readGraph(Start, &InputAlphabet, &Ribbonalphabet, "../TuringMachine.txt"  /*argv[0]*/);
+
+    readGraph();
 
     return EXIT_SUCCESS;
 }

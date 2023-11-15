@@ -2,11 +2,11 @@
 
 State* load_graph(std::vector<std::string> *input_alphabet, std::vector<std::string> *ribbon_alphabet, std::string_view file_name)
 {
-    std::fstream coordinates_file(file_name.data());
+    std::fstream graph_file(file_name.data());
 
-    if (!coordinates_file.is_open())
+    if (!graph_file.is_open())
     {
-        throw "[ERROR]: Unable to open tue file ! Leaving the program ...";
+        throw std::runtime_error("[ERRO]: Não foi possivel ler o arquvio ! Saindo do programa ...");
     }
 
     State *start_list_ptr = nullptr;
@@ -15,7 +15,7 @@ State* load_graph(std::vector<std::string> *input_alphabet, std::vector<std::str
     State *aux2_ptr = nullptr;
     uint32_t transaction_count;
 
-    for (std::string file_line; std::getline(coordinates_file, file_line);)
+    for (std::string file_line; std::getline(graph_file, file_line);)
     {
         if (file_line.empty())
             continue;

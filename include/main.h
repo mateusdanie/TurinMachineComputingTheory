@@ -101,7 +101,7 @@ void load_graph(State *start_state, std::vector<std::string> *input_alphabet, st
         }
         else if(prefix == "S")
         {
-
+            stream >> aux_ptr->status;
         }
         else if(prefix == "T")
         {

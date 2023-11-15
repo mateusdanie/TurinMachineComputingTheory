@@ -6,7 +6,7 @@ State* load_graph(std::vector<std::string> *input_alphabet, std::vector<std::str
 
     if (!graph_file.is_open())
     {
-        throw std::runtime_error("[ERRO]: Não foi possivel ler o arquvio ! Saindo do programa ...");
+        throw std::runtime_error("[ERRO]: Nao foi possivel ler o arquvio ! Saindo do programa ...");
     }
 
     State *start_list_ptr = nullptr;

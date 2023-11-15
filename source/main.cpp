@@ -18,7 +18,28 @@ int main(int argc, char * argv[])
 
         graph = load_graph(input_alphabet, ribbon_alphabet, "../TuringMachine.txt");
 
-        // Turing Machine Logic
+        std::vector<std::string> ribbon = {"µ"};
+
+        std::cout << "Escreva uma frase: ";
+
+        std::string phrase;
+        std::cin >> phrase;
+
+        for(char c : phrase)
+        {
+            std::string character = std::string(1, c);
+
+            if(std::find(input_alphabet->begin(), input_alphabet->end(), character) != input_alphabet->end())
+            {
+                ribbon.push_back(std::string(1, c));
+            }
+            else
+            {
+                throw std::runtime_error("[ERRO]: Caractere \"" + character + "\" não pertence ao alfabeto de entrada ! Saindo do programa ...");
+            }
+        }
+
+        ribbon.push_back("ß");
 
         return EXIT_SUCCESS;
     }

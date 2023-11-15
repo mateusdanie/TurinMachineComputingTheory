@@ -1,6 +1,6 @@
 #include <entities.h>
 
-void load_graph(State *start_state, std::string input_alphabet, std::string ribbon_alphabet, std::string_view file_name)
+void load_graph(State *start_state, std::vector<std::string> *input_alphabet, std::vector<std::string> *ribbon_alphabet, std::string_view file_name)
 {
     std::fstream coordinates_file(file_name.data());
 
@@ -61,11 +61,21 @@ void load_graph(State *start_state, std::string input_alphabet, std::string ribb
         }
         else if(prefix == "A")
         {
+            std::string value = "";
             
+            while(stream >> value)
+            {
+                input_alphabet->push_back(value);
+            }
         }
         else if(prefix == "F")
         {
-
+            std::string value = "";
+            
+            while(stream >> value)
+            {
+                ribbon_alphabet->push_back(value);
+            }
         }
         else if(prefix == "D")
         {

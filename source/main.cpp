@@ -1,8 +1,8 @@
 #include "main.h"
 
 State *start_state = nullptr;
-std::string input_alphabet = ""; // Equivalente a uma lista de strings ou matrix de caracteres
-std::string ribbon_alphabet = ""; // Equivalente a uma lista de strings ou matrix de caracteres
+std::vector<std::string> *input_alphabet = new std::vector<std::string>;
+std::vector<std::string> *ribbon_alphabet = new std::vector<std::string>;
 
 int main(int argc, char * argv[])
 {

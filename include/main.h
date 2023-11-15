@@ -23,14 +23,45 @@ void load_graph(State *start_state, std::string input_alphabet, std::string ribb
         std::string_view target = line_view.substr(index);
 
         std::istringstream stream{target.data()};
+        
+        State *start_list_ptr = nullptr;
+        State *final_list_ptr = nullptr;
 
-        if (prefix == "E")
+        if(prefix == "E")
         {
-            
+            uint32_t count = 0;
+            std::string value = "";
+
+            while(stream >> value)
+            {
+                State *new_state = new State();
+
+                new_state->identifier = value;
+                new_state->status = "";
+                new_state->next_state = nullptr;
+                new_state->transitions_functions = nullptr;
+                
+                if(count == 0)
+                {
+                    start_list_ptr = new_state;
+                }
+                else if (count == 1)
+                {
+                    start_list_ptr->next_state = new_state;
+                    final_list_ptr = new_state;
+                }
+                else
+                {
+                    start_list_ptr->next_state = new_state;
+                    final_list_ptr = new_state;
+                }
+                
+                count++;
+            }
         }
         else if(prefix == "A")
         {
-
+            
         }
         else if(prefix == "F")
         {
@@ -58,63 +89,11 @@ void load_graph(State *start_state, std::string input_alphabet, std::string ribb
 /*
 void readGraph(State *Start, char *InputAlphabet, char *Ribbonalphabet, char *FilePath)
 {
-    FILE *file;
-    file = fopen(FilePath, "r");
-
-    if(file == NULL)
-    {
-        printf("[Error]: Arquivo não pode ser aberto !");
-        return;
-    }
-
-    char content[256];
-    char *content_sliced;
-    char *Identifier;
-    char *slice_delimitatator = ",";
-    State *Aux = NULL;
-    State *Aux2 = NULL;
-    State *Start_List = NULL;
-    int j = 0;
-    int i = 0;
 
     while (fgets(content, 256, file) != NULL)
     {   
         content_sliced = strtok(content, " ");
 
-        if(strcmp(content_sliced,"E") == 0)
-        {
-            while(content_sliced != NULL)
-            {
-                content_sliced = strtok(NULL, slice_delimitatator);
-                State* New_State = (struct State *)malloc(sizeof(struct State));
-                strcat(Identifier, content_sliced);
-
-                if(i == 0 && content_sliced != NULL)
-                {
-                    
-                    New_State->Identifier = content_sliced;
-
-                    New_State->Status = "";
-                    Start_List = New_State;
-                }
-                else if (i == 1 && content_sliced != NULL)
-                {
-                    New_State->Identifier = Identifier;
-                    New_State->Status = "";
-                    Start_List->Next_State = New_State;
-                    Aux = New_State;
-                }
-                else if(i > 1 && content_sliced != NULL)
-                {
-                    New_State->Identifier = Identifier;
-                    New_State->Status = "";
-                    Aux->Next_State = New_State;   
-                    Aux = Aux->Next_State;
-                }
-
-                i++;
-            }
-        }
         else if(strcmp(content_sliced,"A") == 0)
         {   
             while(content_sliced != NULL)
@@ -191,5 +170,5 @@ void readGraph(State *Start, char *InputAlphabet, char *Ribbonalphabet, char *Fi
     //     printf("%s ", Aux->Identifier);
     //     Aux = Aux->Next_State;
     // }
-}
+}*/
 

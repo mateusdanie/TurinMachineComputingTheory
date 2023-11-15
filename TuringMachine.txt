@@ -1,25 +1,25 @@
-E Q0,Q1,Q2,Q3,Q4
-A a,A,b,B
-F a,A,b,B,µ,ß
+E Q0 Q1 Q2 Q3 Q4
+A a A b B
+F a A b B µ ß
 D Q0
 S Inicial
-T a,A,R,Q1
-T µ,µ,R,Q0
-T B,B,R,Q3
-T ß,ß,R,Q4
+T a A R Q1
+T µ µ R Q0
+T B B R Q3
+T ß ß R Q4
 D Q1
 S Transition
-T a,a,R,Q1
-T B,B,R,Q1
-T b,B,L,Q2
+T a a R Q1
+T B B R Q1
+T b B L Q2
 D Q2
 S Transition
-T a,a,L,Q2
-T B,B,L,Q2
-T A,A,R,Q0
+T a a L Q2
+T B B L Q2
+T A A R Q0
 D Q3
 S Transition
-T B,B,R,Q3
-T ß,ß,L,Q4
+T B B R Q3
+T ß ß L Q4
 D Q4
 S Accept

@@ -1,8 +1,8 @@
 #include "main.h"
 
-State *Start = NULL;
-char *InputAlphabet = NULL; // Equivalente a uma lista de strings ou matrix de caracteres
-char *Ribbonalphabet = NULL; // Equivalente a uma lista de strings ou matrix de caracteres
+State *start_state = nullptr;
+std::string input_alphabet = ""; // Equivalente a uma lista de strings ou matrix de caracteres
+std::string ribbon_alphabet = ""; // Equivalente a uma lista de strings ou matrix de caracteres
 
 int main(int argc, char * argv[])
 {
@@ -14,7 +14,7 @@ int main(int argc, char * argv[])
 
     //readGraph(Start, &InputAlphabet, &Ribbonalphabet, "../TuringMachine.txt"  /*argv[0]*/);
 
-    readGraph();
+    load_graph(start_state, input_alphabet, ribbon_alphabet, "../TuringMachine.txt");
 
     return EXIT_SUCCESS;
 }

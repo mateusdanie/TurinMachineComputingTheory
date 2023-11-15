@@ -1,6 +1,6 @@
 #include <entities.h>
 
-void readGraph(State start, std::string input_alphabet, std::string ribbon_alphabet, std::string_view file_name)
+void load_graph(State *start_state, std::string input_alphabet, std::string ribbon_alphabet, std::string_view file_name)
 {
     std::fstream coordinates_file(file_name.data());
 

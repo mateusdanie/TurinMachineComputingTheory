@@ -28,19 +28,17 @@ int main(int argc, char * argv[])
 {
     try
     {
-        /*if(argc < 2 || argc > 2)
+        if(argc < 2 || argc > 2)
         {
-            printf("[Aviso]: Numero invalido de parametros !\n[Info]: Siga o exemplo: TuringMachine.exe caminho/para/arquivo.extensão");
+            printf("[WARNING]: Invalid number of parameters !\n[INFO]: Follow the example: TuringMachine.exe path/to/file.extension");
             return EXIT_FAILURE;
         }
 
-        graph = load_graph(input_alphabet, ribbon_alphabet, argv[1]);*/
-
-        graph = load_graph(input_alphabet, ribbon_alphabet, "../TuringMachine.txt");
+        graph = load_graph(input_alphabet, ribbon_alphabet, argv[1]);
 
         std::vector<std::string> ribbon = {"µ"};
 
-        std::cout << "Escreva uma frase: ";
+        std::cout << "Enter a phrase: ";
 
         std::string phrase;
         std::cin >> phrase;
@@ -55,7 +53,7 @@ int main(int argc, char * argv[])
             }
             else
             {
-                throw std::runtime_error("[ERRO]: Caractere \"" + character + "\" não pertence ao alfabeto de entrada ! Saindo do programa ...");
+                throw std::runtime_error("[ERROR]: Character \"" + character + "\" doesn't belong to the input alphabet ! Leaving the program...");
             }
         }
 
@@ -67,11 +65,11 @@ int main(int argc, char * argv[])
             {
                 if(transition_function->read == character)
                 {
-                    print_ribbon(ribbon, "[Info]: Ribbon before \"" + transition_function->write + "\" write: ");
+                    print_ribbon(ribbon, "[INFO]: Ribbon before \"" + transition_function->write + "\" write: ");
 
                     ribbon[ribbon_head] = transition_function->write;
 
-                    print_ribbon(ribbon, "[Info]: Ribbon after \"" + transition_function->write + "\" write: ");
+                    print_ribbon(ribbon, "[INFO]: Ribbon after \"" + transition_function->write + "\" write: ");
                     
                     if(transition_function->head_movement == "L")
                     {
@@ -93,15 +91,15 @@ int main(int argc, char * argv[])
 
         if(graph->status == "Accept")
         {
-            std::cout << "[Info]: A frase " + phrase + " é aceita pela máquina !" << std::endl;
+            std::cout << "[INFO]: The phrase " + phrase + " is accepted by machine !" << std::endl;
         }
         else if(graph->status == "Reject")
         {
-            std::cout << "[Info]: A frase " + phrase + " é rejeitada pela máquina !" << std::endl;
+            std::cout << "[INFO]: The phrase " + phrase + " is rejected by machine !" << std::endl;
         }
         else
         {
-            std::cout << "[Info]: A frase " + phrase + " não é reconhecida pela máquina !" << std::endl;
+            std::cout << "[INFO]: The phrase " + phrase + " is not recognized by machine !" << std::endl;
         }
 
         return EXIT_SUCCESS;

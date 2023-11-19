@@ -6,7 +6,7 @@ State* load_graph(std::vector<std::string> *input_alphabet, std::vector<std::str
 
     if (!graph_file.is_open())
     {
-        throw std::runtime_error("[ERRO]: Nao foi possivel ler o arquvio ! Saindo do programa ...");
+        throw std::runtime_error("[ERROR]: Unable to read the file ! Leaving the program...");
     }
 
     State *start_list_ptr = nullptr;
@@ -191,7 +191,7 @@ State* load_graph(std::vector<std::string> *input_alphabet, std::vector<std::str
     }
 
     if(!found)
-        throw std::runtime_error("[ERRO]: Estado inicial não informado ! Saindo do programa ...");
+        throw std::runtime_error("[ERROR]: Initial status not informed ! Leaving the program...");
 
     return aux_ptr;
 }

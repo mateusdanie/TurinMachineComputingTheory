@@ -2,6 +2,7 @@
 
 State *graph = nullptr;
 uint32_t ribbon_head = 0;
+bool found = false;
 std::vector<std::string> *input_alphabet = new std::vector<std::string>;
 std::vector<std::string> *ribbon_alphabet = new std::vector<std::string>;
 
@@ -65,6 +66,8 @@ int main(int argc, char * argv[])
             {
                 if(transition_function->read == character)
                 {
+                    found = true;
+
                     print_ribbon(ribbon, "[INFO]: Ribbon before \"" + transition_function->write + "\" write: ");
 
                     ribbon[ribbon_head] = transition_function->write;
@@ -87,20 +90,17 @@ int main(int argc, char * argv[])
                     break;
                 }
             }
+
+            if(found == false)
+                throw std::runtime_error("[ERROR]: The phrase " + phrase + " is not recognized by machine !");
         }
 
         if(graph->status == "Accept")
-        {
             std::cout << "[INFO]: The phrase " + phrase + " is accepted by machine !" << std::endl;
-        }
         else if(graph->status == "Reject")
-        {
             std::cout << "[INFO]: The phrase " + phrase + " is rejected by machine !" << std::endl;
-        }
         else
-        {
             std::cout << "[INFO]: The phrase " + phrase + " is not recognized by machine !" << std::endl;
-        }
 
         return EXIT_SUCCESS;
     }

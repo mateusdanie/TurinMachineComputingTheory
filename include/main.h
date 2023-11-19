@@ -14,6 +14,7 @@ State* load_graph(std::vector<std::string> *input_alphabet, std::vector<std::str
     State *aux_ptr = nullptr;
     State *aux2_ptr = nullptr;
     uint32_t transaction_count;
+    uint32_t initial_count;
 
     for (std::string file_line; std::getline(graph_file, file_line);)
     {
@@ -102,7 +103,21 @@ State* load_graph(std::vector<std::string> *input_alphabet, std::vector<std::str
         }
         else if(prefix == "S")
         {
-            stream >> aux_ptr->status;
+            std::string value;
+            bool multiple_status = false;
+
+            while(stream >> value)
+            {
+                if(multiple_status)
+                {
+                    aux_ptr->status += " " + value;
+                }
+                else
+                {
+                    aux_ptr->status = value;
+                    multiple_status = true;
+                }
+            }
         }
         else if(prefix == "T")
         {
@@ -148,48 +163,35 @@ State* load_graph(std::vector<std::string> *input_alphabet, std::vector<std::str
         }
     }
 
-    return start_list_ptr;
-}
+    aux_ptr = start_list_ptr;
 
-/*
-void readGraph(State *Start, char *InputAlphabet, char *Ribbonalphabet, char *FilePath)
-{
+    bool found = false;
 
+    while(aux_ptr->next_state != nullptr)
+    {
+        std::istringstream find_stream(aux_ptr->status);
+        std::string status;
 
-        else if (strcmp(content_sliced,"T") == 0)
+        while(find_stream >> status)
         {
-            // Aux2 = Start_List;
-            // while(content_sliced != NULL){
-            //     content_sliced = strtok(NULL, slice_delimitatator);
-            //     if(j == 0 && content_sliced  != NULL)
-            //         Aux->TransitionsFunctions[i].Read = content_sliced;
-            //     else if (j == 1 && content_sliced  != NULL)
-            //         Aux->TransitionsFunctions[i].Write = content_sliced;
-            //     else if (j == 2 && content_sliced  != NULL)
-            //         Aux->TransitionsFunctions[i].HeadMovement = content_sliced;
-            //     else if (j == 3 && content_sliced  != NULL)
-            //         while (Aux2->Next_State != NULL)
-            //         {
-            //             if(strcmp(Aux2->Identifier, content_sliced) == 0){
-            //                 break;
-            //             }else{
-            //                 Aux2 = Aux2->Next_State;
-            //             }
-            //         }
-
-            //        Aux->TransitionsFunctions[i].Next_State = Aux2;
-            //     j++;
-            // }   
-            // i++;
+            if(status == "Initial")
+            {
+                found = true;
+                break;
+            }
         }
+
+        if(found)
+            break;
+
+        aux_ptr	= aux_ptr->next_state;
+
+        if(aux_ptr->next_state == nullptr)
+            break;
     }
 
-/*
-    // Aux = Start_List;
-    // while (Aux->Next_State != NULL)
-    // {
-    //     printf("%s ", Aux->Identifier);
-    //     Aux = Aux->Next_State;
-    // }
-}*/
+    if(!found)
+        throw std::runtime_error("[ERRO]: Estado inicial não informado ! Saindo do programa ...");
 
+    return aux_ptr;
+}

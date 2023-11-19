@@ -2,7 +2,7 @@ E Q0 Q1 Q2 Q3 Q4
 A a A b B
 F a A b B µ ß
 D Q0
-S Inicial
+S Initial Accept
 T a A R Q1
 T µ µ R Q0
 T B B R Q3
@@ -18,7 +18,7 @@ T a a L Q2
 T B B L Q2
 T A A R Q0
 D Q3
-S Transition
+S Reject
 T B B R Q3
 T ß ß L Q4
 D Q4

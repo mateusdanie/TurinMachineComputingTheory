@@ -1,8 +1,28 @@
 #include "main.h"
 
 State *graph = nullptr;
+uint32_t ribbon_head = 0;
 std::vector<std::string> *input_alphabet = new std::vector<std::string>;
 std::vector<std::string> *ribbon_alphabet = new std::vector<std::string>;
+
+void print_ribbon(std::vector<std::string> ribbon, std::string prefix)
+{
+    std::string ribbon_str = "";
+    bool multiple_elements = false;
+
+    for(std::string element : ribbon)
+    {
+        if(multiple_elements)
+            ribbon_str += " " + element;
+        else
+        {
+            ribbon_str = element;
+            multiple_elements = true;
+        }
+    }
+
+    std::cout << prefix << ribbon_str << std::endl;
+}
 
 int main(int argc, char * argv[])
 {
@@ -40,6 +60,49 @@ int main(int argc, char * argv[])
         }
 
         ribbon.push_back("ß");
+
+        for(std::string character : ribbon)
+        {
+            for(TransitionFunction *transition_function : *(graph->transition_functions))
+            {
+                if(transition_function->read == character)
+                {
+                    print_ribbon(ribbon, "[Info]: Ribbon before \"" + transition_function->write + "\" write: ");
+
+                    ribbon[ribbon_head] = transition_function->write;
+
+                    print_ribbon(ribbon, "[Info]: Ribbon after \"" + transition_function->write + "\" write: ");
+                    
+                    if(transition_function->head_movement == "L")
+                    {
+                        if(ribbon_head == 0)
+                            continue;
+                        else
+                            ribbon_head -= 1;
+                    }
+                    else if(transition_function->head_movement == "R")
+                    {
+                        ribbon_head += 1;
+                    }
+
+                    graph = transition_function->next_state;
+                    break;
+                }
+            }
+        }
+
+        if(graph->status == "Accept")
+        {
+            std::cout << "[Info]: A frase " + phrase + " é aceita pela máquina !" << std::endl;
+        }
+        else if(graph->status == "Reject")
+        {
+            std::cout << "[Info]: A frase " + phrase + " é rejeitada pela máquina !" << std::endl;
+        }
+        else
+        {
+            std::cout << "[Info]: A frase " + phrase + " não é reconhecida pela máquina !" << std::endl;
+        }
 
         return EXIT_SUCCESS;
     }
